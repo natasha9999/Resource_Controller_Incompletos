@@ -1,0 +1,50 @@
+package br.com.matrix.idioma.resource;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
+
+import br.com.matrix.idioma.model.User;
+import br.com.matrix.idioma.service.UserService;
+
+
+@RestController
+public class UserResource {
+	
+@Autowired	
+private UserService userService;
+
+@PostMapping("/user")
+public ResponseEntity<User> save(@RequestBody @Valid User user) {
+	return new ResponseEntity<>(UserService.save(user), HttpStatus.OK);
+}
+
+@PutMapping("/user")
+public ResponseEntity<User> update(@RequestBody User user) {
+	return new ResponseEntity<>(UserService.save(user), HttpStatus.OK);
+}
+	
+
+@GetMapping("/user/findById{id}")
+public ResponseEntity<?> findById(@PathVariable("id") Long id) {
+    return new ResponseEntity<>(UserService.findById(id), HttpStatus.OK);
+}
+ 
+ 
+@DeleteMapping("/empresa/{id}")
+public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
+	UserService.deleteById(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+}	
+
+}
